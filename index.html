@@ -8,36 +8,56 @@
     <title>Document</title>
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 
 <body>
 
     <!-- 
-       1.Tại sao phải dùng React-DOM?
-       2.Tại sao lại tách React-DOM riêng?
-       3. RenderUI 
+        JSX -> Javascrpit XML
+       1. Luôn dùng React.createElement() ?  Vấn đề ?
+       2. JSX ? Live demo : https://bit.ly/2VOIMN7
+       3. JSX không phải là HTML , Cần có Javascript , Babel để dùng JSX 
+       4. JSX và React-DOM?
+        <ul>
+            <li>Javascript</li>
+            <li>ReactJS</li>
+        </ul>
      -->
     <div id="root"></div>
-    <script>
-        //React
-        const postItem = React.createElement(
-            'div',
+    <div id="view2"></div>
+    <script type="text/babel">
+        const reactCourse = 'ReactJS F8';
+        const arr = [
             {
-                className: 'post-item'
-            }, React.createElement(
-                'h2',
-                {
-                    title: 'et o et'
-                },
-                'Hoc ReactJs'
-            ),
-            React.createElement('p', {}, 'HOC ReactJS =>>>> ???')
+                name: "test1"
+            },
+            {
+                name: "test2"
+            },
+            {
+                name: "test3"
+            }
+        ]
+        const ul =
+            <ul>
+                {arr.map((arr, index) =>
+                    <li key={index}>{arr.name}</li>
+                )}
+            </ul>
+        ReactDOM.render(ul, document.getElementById('root'))
+        //Render 2 elements cùng lúc
+        const jsx = (
+            <React.Fragment>
+                <h1>
+                    Text1
+                </h1>
+                <h2>
+                    Text2
+                </h2>
+            </React.Fragment>
         )
-        console.log(postItem)
-        //Get root element
-        const root = document.getElementById('root');
-        //React-DOM -> render UI
-        ReactDOM.render(postItem, root)
+        ReactDOM.render(jsx, document.getElementById('view2'))
     </script>
 </body>
 
