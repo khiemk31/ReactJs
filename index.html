@@ -22,40 +22,31 @@
             -Footer ->  Footer component
     2. Trình bày với JSX
      -->
-    <div id="root"></div>
-    <div id="view2"></div>
+    <div id="app"></div>
     <script type="text/babel">
-        const reactCourse = 'ReactJS F8';
-        const arr = [
-            {
-                name: "test1"
-            },
-            {
-                name: "test2"
-            },
-            {
-                name: "test3"
+        function Header() {
+            return (
+                <div class="header">New Header</div>
+            )
+        }
+        class Content extends React.Component {
+            render() {
+                return (
+                    <div class="content">Content</div>
+                )
             }
-        ]
-        const ul =
-            <ul>
-                {arr.map((arr, index) =>
-                    <li key={index}>{arr.name}</li>
-                )}
-            </ul>
-        ReactDOM.render(ul, document.getElementById('root'))
-        //Render 2 elements cùng lúc
-        const jsx = (
-            <React.Fragment>
-                <h1>
-                    Text1
-                </h1>
-                <h2>
-                    Text2
-                </h2>
-            </React.Fragment>
+        }
+        const app = (
+            <div class="posts-list">
+                <div class="post-item">
+                    <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="" />
+                    <h2 class="post-title">C#(.NET) -Tương tác với bla bla bla</h2>
+                    <p class="post-desc">nooji dung bla bal </p>
+                    <p class="post-published">4324324</p>
+                </div>
+            </div>
         )
-        ReactDOM.render(jsx, document.getElementById('view2'))
+        ReactDOM.render(app, document.getElementById('app'))
     </script>
 </body>
 
