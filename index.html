@@ -42,18 +42,19 @@
             title,
             description,
             publishedAt,
-            callBack = ()
+            callBack = () => {
+            }
         }) {
-            if (typeof props.callBack === 'function')
-                props.callBack(Math.random());
+            if (typeof callBack === 'function')
+                callBack(Math.random());
             return (
                 <div class="post-item">
                     <label htmlFor="email">Email</label>
                     <input type="text" id="email" />
-                    <img src={props.image} alt={props.title} />
-                    <h2 class="post-title">{props.title}</h2>
-                    <p class="post-desc">{props.description}</p>
-                    <p class="post-published">{props.publishedAt}</p>
+                    <img src={image} alt={title} />
+                    <h2 class="post-title">{title}</h2>
+                    <p class="post-desc">{description}</p>
+                    <p class="post-published">{publishedAt}</p>
                 </div>
             )
         }
@@ -91,7 +92,6 @@
                 </div>
             )
         }
-
         ReactDOM.render(<App />, document.getElementById('app'))
     </script>
 </body>
