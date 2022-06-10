@@ -9,89 +9,156 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
-
-    <!-- 
-     *Hooks
-     1. React element types : string , function/class
-        -Wrapper
-            -Header -> Header component
-            -Content -> Content component
-            -Footer ->  Footer component
-    2. Trình bày với JSX
-     -->
     <div id="app"></div>
     <script type="text/babel">
-        function Header() {
-            return (
-                <div class="header">New Header</div>
-            )
-        }
-        class Content extends React.Component {
-            render() {
-                return (
-                    <div class="content">Content</div>
-                )
+        const data = [
+            {
+                "id": 696,
+                "title": "\"Code Thiếu Nhi Battle\" Tranh Giành Trà Sữa Size L",
+                "slug": "code-thieu-nhi-battle-tranh-gianh-tra-sua-size-l",
+                "image": "https://i.ytimg.com/vi/sgq7BH6WxL8/maxresdefault.jpg",
+                "video": "sgq7BH6WxL8",
+                "duration": 1510,
+                "yt_view_count": 241897,
+                "yt_comment_count": 184,
+                "yt_like_count": 5191,
+                "image_url": "https://i.ytimg.com/vi/sgq7BH6WxL8/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 760,
+                "title": "Sinh viên IT đi thực tập tại doanh nghiệp cần biết những gì?",
+                "slug": "sinh-vien-it-di-thuc-tap-tai-doanh-nghiep-can-biet-nhung-gi",
+                "image": "https://i.ytimg.com/vi/YH-E4Y3EaT4/maxresdefault.jpg",
+                "video": "YH-E4Y3EaT4",
+                "duration": 2091,
+                "yt_view_count": 194768,
+                "yt_comment_count": 227,
+                "yt_like_count": 5115,
+                "image_url": "https://i.ytimg.com/vi/YH-E4Y3EaT4/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 456,
+                "title": "Phương pháp học lập trình của Admin F8?",
+                "slug": "phuong-phap-hoc-lap-trinh-cua-admin-f8",
+                "image": "https://i.ytimg.com/vi/DpvYHLUiZpc/maxresdefault.jpg",
+                "video": "DpvYHLUiZpc",
+                "duration": 1446,
+                "yt_view_count": 76640,
+                "yt_comment_count": 271,
+                "yt_like_count": 4217,
+                "image_url": "https://i.ytimg.com/vi/DpvYHLUiZpc/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 533,
+                "title": "Làm sao để có thu nhập cao và đi xa hơn trong ngành IT?",
+                "slug": "lam-sao-de-co-thu-nhap-cao-va-di-xa-hon-trong-nganh-it",
+                "image": "https://i.ytimg.com/vi/oF7isq9IjZM/maxresdefault.jpg",
+                "video": "oF7isq9IjZM",
+                "duration": 1540,
+                "yt_view_count": 58861,
+                "yt_comment_count": 217,
+                "yt_like_count": 2722,
+                "image_url": "https://i.ytimg.com/vi/oF7isq9IjZM/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 44,
+                "title": "Bạn sẽ làm được gì sau khóa học?",
+                "slug": "ban-se-lam-duoc-gi-sau-khoa-hoc",
+                "image": "https://i.ytimg.com/vi/R6plN3FvzFY/maxresdefault.jpg",
+                "video": "R6plN3FvzFY",
+                "duration": 195,
+                "yt_view_count": 397835,
+                "yt_comment_count": 107,
+                "yt_like_count": 2593,
+                "image_url": "https://i.ytimg.com/vi/R6plN3FvzFY/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 690,
+                "title": "ReactJS là gì? Tại sao nên học ReactJS?",
+                "slug": "reactjs-la-gi-tai-sao-nen-hoc-reactjs",
+                "image": "https://i.ytimg.com/vi/x0fSBAgBrOQ/maxresdefault.jpg",
+                "video": "x0fSBAgBrOQ",
+                "duration": 641,
+                "yt_view_count": 132471,
+                "yt_comment_count": 340,
+                "yt_like_count": 2299,
+                "image_url": "https://i.ytimg.com/vi/x0fSBAgBrOQ/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 692,
+                "title": "Javascript có thể làm được gì? Giới thiệu qua về trang F8 | Học lập trình Javascript cơ bản",
+                "slug": "javascript-co-the-lam-duoc-gi-gioi-thieu-qua-ve-trang-f8-hoc-lap-trinh-javasc",
+                "image": "https://i.ytimg.com/vi/0SJE9dYdpps/maxresdefault.jpg",
+                "video": "0SJE9dYdpps",
+                "duration": 473,
+                "yt_view_count": 366347,
+                "yt_comment_count": 99,
+                "yt_like_count": 2171,
+                "image_url": "https://i.ytimg.com/vi/0SJE9dYdpps/maxresdefault.jpg",
+                "video_url": null
+            },
+            {
+                "id": 691,
+                "title": "Lần trở lại này F8 sẽ làm gì cho các bạn? Học lập trình để đi làm tại F8 nào!",
+                "slug": "lan-tro-lai-nay-f8-se-lam-gi-cho-cac-ban-hoc-lap-trinh-de-di-lam-tai-f8-nao",
+                "image": "https://i.ytimg.com/vi/ZGmpvhqYSDU/maxresdefault.jpg",
+                "video": "ZGmpvhqYSDU",
+                "duration": 396,
+                "yt_view_count": 18588,
+                "yt_comment_count": 402,
+                "yt_like_count": 1992,
+                "image_url": "https://i.ytimg.com/vi/ZGmpvhqYSDU/maxresdefault.jpg",
+                "video_url": null
             }
-        }
+        ]
+
 
         function PostItem({
             image,
             title,
             description,
             publishedAt,
-            callBack = ()
+            callBack = () => {
+            }
         }) {
-            if (typeof props.callBack === 'function')
-                props.callBack(Math.random());
+            if (typeof callBack === 'function')
+                callBack(Math.random());
             return (
                 <div class="post-item">
-                    <label htmlFor="email">Email</label>
-                    <input type="text" id="email" />
-                    <img src={props.image} alt={props.title} />
-                    <h2 class="post-title">{props.title}</h2>
-                    <p class="post-desc">{props.description}</p>
-                    <p class="post-published">{props.publishedAt}</p>
+                    <img src={image} alt={title} />
+                    <h2 class="post-title">{title}</h2>
+                    <p class="post-desc">{description}</p>
+                    <p class="post-published">{publishedAt}</p>
                 </div>
             )
         }
         function App() {
             return (
                 <div id="wrapper">
-                    <PostItem
-                        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                        title='C#(.NET) -Tương tác với bla bla bla'
-                        descprition='Noi dung ben trong bla bal bal'
-                        publishedAt='2015-04-23'
-                        callBack={(ramdom) => {
-                            console.log('ramdom:', ramdom);
-                        }}
-                    />
-                    <PostItem
-                        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                        title='C#(.NET) -Tương tác với bla bla bla'
-                        descprition='Noi dung ben trong bla bal bal'
-                        publishedAt='2015-04-23'
-                        callBack={(ramdom) => {
-                            console.log('ramdom:', ramdom);
-                        }}
-                    />
-                    <PostItem
-                        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                        title='C#(.NET) -Tương tác với bla bla bla'
-                        descprition='Noi dung ben trong bla bal bal'
-                        publishedAt='2015-04-23'
-                        callBack={(ramdom) => {
-                            console.log('ramdom:', ramdom);
-                        }}
-                    />
-
+                    {
+                        data.map(map => (
+                            <PostItem
+                                key={map.id}
+                                image={map.image}
+                                title={map.title}
+                                description={map.title}
+                                publishedAt={map.duration}
+                            />
+                        ))
+                    }
                 </div>
             )
         }
-
         ReactDOM.render(<App />, document.getElementById('app'))
     </script>
 </body>
