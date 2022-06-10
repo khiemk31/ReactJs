@@ -24,25 +24,6 @@
      -->
     <div id="app"></div>
     <script type="text/babel">
-        const data = [{
-            img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-            title: "C#(.NET) -Tương tác với bla bla bla",
-            descprition: 'Noi dung 1',
-            published: 222
-        },
-        {
-            img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-            title: " Sửa điện - Vua của các nghề ",
-            descprition: 'Tôi có thằng em sn 96 tay ngang sang à mà thôi  =)))',
-            published: 222
-        },
-        {
-            img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-            title: "JAVA",
-            descprition: 'Noi dung 3',
-            published: 222
-        }
-        ]
         function Header() {
             return (
                 <div class="header">New Header</div>
@@ -55,27 +36,63 @@
                 )
             }
         }
-        // const ul =
-        //     <ul>
-        //         {arr.map((arr, index) =>
-        //             <li key={index}>{arr.name}</li>
-        //         )}
-        //     </ul>
-        const app = (
-            <div class="posts-list" >
+
+        function PostItem({
+            image,
+            title,
+            description,
+            publishedAt,
+            callBack = ()
+        }) {
+            if (typeof props.callBack === 'function')
+                props.callBack(Math.random());
+            return (
                 <div class="post-item">
-                    {data.map((data, index) => {
-                        console.log(data);
-                        <React.Fragment>
-                            <li>{data.title}</li>
-                            < img key={index} src={data.img} />
-                            < h2 key={index} > {data.title} </h2>
-                        </React.Fragment>
-                    })}
+                    <label htmlFor="email">Email</label>
+                    <input type="text" id="email" />
+                    <img src={props.image} alt={props.title} />
+                    <h2 class="post-title">{props.title}</h2>
+                    <p class="post-desc">{props.description}</p>
+                    <p class="post-published">{props.publishedAt}</p>
                 </div>
-            </div >
-        )
-        ReactDOM.render(app, document.getElementById('app'))
+            )
+        }
+        function App() {
+            return (
+                <div id="wrapper">
+                    <PostItem
+                        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                        title='C#(.NET) -Tương tác với bla bla bla'
+                        descprition='Noi dung ben trong bla bal bal'
+                        publishedAt='2015-04-23'
+                        callBack={(ramdom) => {
+                            console.log('ramdom:', ramdom);
+                        }}
+                    />
+                    <PostItem
+                        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                        title='C#(.NET) -Tương tác với bla bla bla'
+                        descprition='Noi dung ben trong bla bal bal'
+                        publishedAt='2015-04-23'
+                        callBack={(ramdom) => {
+                            console.log('ramdom:', ramdom);
+                        }}
+                    />
+                    <PostItem
+                        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                        title='C#(.NET) -Tương tác với bla bla bla'
+                        descprition='Noi dung ben trong bla bal bal'
+                        publishedAt='2015-04-23'
+                        callBack={(ramdom) => {
+                            console.log('ramdom:', ramdom);
+                        }}
+                    />
+
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App />, document.getElementById('app'))
     </script>
 </body>
 
