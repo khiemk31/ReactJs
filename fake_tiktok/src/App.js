@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-
+//Hooks : những metol , function đc viết sẵn sử dụng trong reactJS k sd trong class Component
 function App() {
   return (
     <div className="App">
