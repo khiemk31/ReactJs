@@ -1,27 +1,30 @@
-import { useState } from "react";
-
+import { useState, memo } from "react";
 import Content from "./Content";
-//useEffect :
-//1. Cập nhật lại state
-//2. Cập nhật lại DOM (mutated)
-//3. Render lại UI
-//4. Gọi cleanup nếu deps thay đổi
-//5. Gọi useEffect callback
+//1. memo() -> Higher Order Component (HOC)
+//2. useCallback()
 
-//useLayoutEffect :
-//1. Cập nhật lại state
-//2. Cập nhật lại DOM (mutated)
-//3. Gọi cleanup nếu deps thay đổi (sync)
-//4. Gọi useLayoutEffect callback (sync)
-//5. Render lại UI
+//Hooks
+//HOC
+//Render props
 
 function App() {
   const [show, setShow] = useState(true);
+  const [count, setCount] = useState(0);
+  const [number, setNumber] = useState(0);
 
+  const changeNumberInContent = () => {
+    setNumber(Math.random());
+  };
+  const handleClick = () => {
+    setCount(count + 1);
+  };
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: "10px  32px" }}>
       <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button>
-      {show && <Content />}
+      {show && <Content number={number} />}
+      <h1>{count}</h1>
+      <button onClick={changeNumberInContent}>Change number in content</button>
+      <button onClick={handleClick}>Click me!</button>
     </div>
   );
 }

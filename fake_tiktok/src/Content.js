@@ -1,32 +1,12 @@
-import { useRef, useState, useEffect } from "react";
-//Lưu các giá trị qua một tham chiếu bên ngoài
-//function component
-function useLayoutEffectDemo() {
-  const [count, setCount] = useState(60);
-  const timerId = useRef();
-  const prevCount = useRef();
-  useEffect(() => {
-    prevCount.current = count;
-  }, [count]);
+import { useRef, useState, memo } from "react";
 
-  const handleStart = () => {
-    timerId.current = setInterval(() => {
-      setCount((prev) => prev - 1);
-    }, 1000);
-    console.log("Start ->", timerId.current);
-  };
-  const handleStop = () => {
-    clearInterval(timerId.current);
-    console.log("Stop ->", timerId.current);
-  };
-  console.log(count, prevCount.current);
+function Content({ number }) {
+  console.log("re-render");
   return (
-    <div>
-      <h1>{count}</h1>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
+    <div style={{ padding: "10px  32px" }}>
+      <h1>Hello World {number}</h1>
     </div>
   );
 }
 
-export default useLayoutEffectDemo;
+export default memo(Content);
