@@ -2,10 +2,12 @@ import { useState } from "react";
 import Content from "./Content";
 import TimeCountDown from "./TimeCountDown";
 import Avatar from "./Avatar";
+import FakeChat from "./FakeChat";
 
-const tabs = ["Content", "Avatar", "TimeCountDown"];
+const tabs = ["Content", "Avatar", "TimeCountDown", "FakeChat"];
 function App() {
   const [type, setType] = useState("Content");
+
   const renderTab = (type) => {
     switch (type) {
       case "Content":
@@ -14,6 +16,8 @@ function App() {
         return <Avatar />;
       case "TimeCountDown":
         return <TimeCountDown />;
+      case "FakeChat":
+        return <FakeChat />;
       default:
         return null;
     }
