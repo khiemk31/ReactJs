@@ -1,78 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
-const tabs = ["posts", "comments", "albums"];
-function Content() {
-  const [posts, setPost] = useState([]);
-  const [type, setType] = useState("posts");
-  const [showGoToTop, setShowGoToTop] = useState(false);
-  const [width, setWidth] = useState(window.innerWidth);
+//useEffect :
+//1. Cập nhật lại state
+//2. Cập nhật lại DOM (mutated)
+//3. Render lại UI
+//4. Gọi cleanup nếu deps thay đổi
+//5. Gọi useEffect callback
 
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/${type}`)
-      .then((res) => res.json())
-      .then((posts) => {
-        setPost(posts);
-      });
-  }, [type]);
+//useLayoutEffect :
+//1. Cập nhật lại state
+//2. Cập nhật lại DOM (mutated)
+//3. Gọi cleanup nếu deps thay đổi (sync)
+//4. Gọi useLayoutEffect callback (sync)
+//5. Render lại UI
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowGoToTop(window.scrollY >= 500);
-    };
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-    console.log("addEventListener");
-    //Cleanup Function :  gọi trc khi component bị unmoun
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      console.log("removeEventListener");
-    };
-  }, []);
+function useLayoutEffectDemo() {
+  const [count, setCount] = useState(1);
+
+  //   useEffect(() => {
+  //     if (count > 3) {
+  //       return setCount(0);
+  //     }
+  //   }, [count]);
+  useLayoutEffect(() => {
+    if (count > 3) {
+      return setCount(0);
+    }
+  }, [count]);
+  const handleRun = () => {
+    setCount(count + 1);
+  };
 
   return (
     <div>
-      <h1>{width}</h1>
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          onClick={() => setType(tab)}
-          style={
-            type === tab
-              ? {
-                  color: "#FFF",
-                  backgroundColor: "#333",
-                }
-              : {}
-          }
-        >
-          {tab}
-        </button>
-      ))}
-      <div style={{ padding: 20 }}>
-        {posts.map((post) => (
-          <h1 key={post.id}>{post.name || post.title}</h1>
-        ))}
-      </div>
-      {showGoToTop && (
-        <button
-          style={{
-            position: "fixed",
-            right: 20,
-            bottom: 20,
-          }}
-          onClick={() => {
-            window.scrollTo(0, 0);
-          }}
-        >
-          Go to Top
-        </button>
-      )}
+      <h1>{count}</h1>
+      <button onClick={handleRun}>Run</button>
     </div>
   );
 }
 
-export default Content;
+export default useLayoutEffectDemo;

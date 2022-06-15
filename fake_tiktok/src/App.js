@@ -1,53 +1,27 @@
 import { useState } from "react";
+
 import Content from "./Content";
-import TimeCountDown from "./TimeCountDown";
-import Avatar from "./Avatar";
-import FakeChat from "./FakeChat";
+//useEffect :
+//1. Cập nhật lại state
+//2. Cập nhật lại DOM (mutated)
+//3. Render lại UI
+//4. Gọi cleanup nếu deps thay đổi
+//5. Gọi useEffect callback
 
-const tabs = ["Content", "Avatar", "TimeCountDown", "FakeChat"];
+//useLayoutEffect :
+//1. Cập nhật lại state
+//2. Cập nhật lại DOM (mutated)
+//3. Gọi cleanup nếu deps thay đổi (sync)
+//4. Gọi useLayoutEffect callback (sync)
+//5. Render lại UI
+
 function App() {
-  const [type, setType] = useState("Content");
+  const [show, setShow] = useState(true);
 
-  const renderTab = (type) => {
-    switch (type) {
-      case "Content":
-        return <Content />;
-      case "Avatar":
-        return <Avatar />;
-      case "TimeCountDown":
-        return <TimeCountDown />;
-      case "FakeChat":
-        return <FakeChat />;
-      default:
-        return null;
-    }
-  };
   return (
     <div style={{ padding: 20 }}>
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          onClick={() => setType(tab)}
-          style={
-            type === tab
-              ? {
-                  color: "#FFF",
-                  backgroundColor: "#333",
-                }
-              : {}
-          }
-        >
-          {tab}
-        </button>
-      ))}
-      {/* {type === "Content" ? (
-        <Content />
-      ) : type === "Avatar" ? (
-        <Avatar />
-      ) : (
-        <TimeCountDown />
-      )} */}
-      {renderTab(type)}
+      <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button>
+      {show && <Content />}
     </div>
   );
 }
