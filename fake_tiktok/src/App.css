@@ -1,4 +1,68 @@
-.dark{
-  color: #FFF;
-  background-color:black
+
+.btn{
+    margin-top: 20px;
+    margin-left: 8px;
+    padding: 9px 14px;
+    background-color: rgb(55, 148, 188);
+    color: white;
+    border: 0;
+    border-radius: 4px;
 }
+.btn:hover{
+    background-color: rgb(214, 2, 2);
+}
+span{
+    cursor: pointer;
+}
+input{
+    padding: 8px 12px;
+    border: 1px solid black;
+    border-radius: 4px;
+    transition: all .25s;
+}
+.input-group input:focus,
+.input-group input:not(:placeholder-shown){
+    border-color: rgb(0, 120, 232);
+    outline: 1px solid rgb(0, 120, 232);
+}
+.input-group{
+    position: relative;
+}
+.input-group label{
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    font-size: .8em;
+    padding: 0;
+    color: #777;
+    transform: translateY(-52%);
+    pointer-events: none;
+    user-select: none;
+    transition: all .25s;
+}
+
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:focus + label{
+    padding: 0 4px;
+    top: 0%;
+    left: 10px;
+    background-color: white;
+    color: rgb(0, 120, 232);
+}
+
+li{
+    animation: show-in .25s;
+}
+
+@keyframes show-in {
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+

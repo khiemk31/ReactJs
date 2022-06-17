@@ -1,20 +1,67 @@
-import Content from "./Content";
-import "./App.css";
-import { useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
-//Context Context
-//CompA => CompB => CompC
 
-//1. Create context
-//2. Provider
-//3. Consumer
+import { useStore, actions } from "./store";
+import { useRef, useState } from "react";
+import "./App.css";
 
 function App() {
-  const context = useContext(ThemeContext);
+  const [state, dispatch] = useStore();
+  const [status, setStatus] = useState(true);
+  const { todos, todoInput } = state;
+  const [index, setIndex] = useState(0);
+  const inputRef = useRef();
+
+  const handleAdd = () => {
+    if (todos !== "") {
+      dispatch(actions.addTodo(todoInput));
+      dispatch(actions.setTodoInput(""));
+      inputRef.current.focus();
+    }
+  };
+  const handleRemove = (index) => {
+    dispatch(actions.removeTodo(index));
+  };
+
+  function handleUpdate() {
+    dispatch(actions.updateTodo(index, todoInput));
+    dispatch(actions.setTodoInput(""));
+    setStatus(true);
+  }
+
   return (
-    <div style={{ padding: "0px  20px" }}>
-      <button onClick={context.toggleTheme}>Toggle Theme</button>
-      <Content />
+    <div className="input-group" style={{ padding: 20 }}>
+      <input
+        value={todoInput}
+        placeholder="Enter todo..."
+        onChange={(e) => {
+          dispatch(actions.setTodoInput(e.target.value));
+        }}
+      />
+
+      <button
+        className="btn"
+        onClick={status === true ? handleAdd : handleUpdate}
+      >
+        {status === true ? "Thêm" : "Update"}
+      </button>
+
+      {todos.map((todo, index) => (
+        <li key={index}>
+          {todo}
+          <button className="btn" onClick={() => handleRemove(index)}>
+            Xoá
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              dispatch(actions.setTodoInput(todo));
+              setStatus(false);
+              setIndex(index);
+            }}
+          >
+            Sửa
+          </button>
+        </li>
+      ))}
     </div>
   );
 }
