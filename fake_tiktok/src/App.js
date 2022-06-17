@@ -1,48 +1,66 @@
-import { useState, useReducer } from "react";
+import { useStore, actions } from "./store";
+import { useRef, useState } from "react";
+import "./App.css";
 
-//useState:
-//1. Init state : 0
-//2. Actions : Up (state+1) / Down (state-1)
-
-//useReducer:
-//1. Init state : 0
-//2. Actions : Up (state+1) / Down (state-1)
-//3. Reducer
-//4. Dispath =>>> example:
-
-//Init state
-const initState = 0;
-
-//Actions
-const UP_ACTION = "up";
-const DOWN_ACTION = "down";
-
-//Reducer
-const reducer = (state, action) => {
-  console.log("reducer running ...");
-  switch (action) {
-    case UP_ACTION:
-      return state + 1;
-    case DOWN_ACTION:
-      return state - 1;
-    default:
-      throw new Error(`Invalid action `);
-  }
-};
 function App() {
-  const [count, setCount] = useState(0);
-  const [count2, dispatch] = useReducer(reducer, initState);
+  const [state, dispatch] = useStore();
+  const [status, setStatus] = useState(true);
+  const { todos, todoInput } = state;
+  const [index, setIndex] = useState(0);
+  const inputRef = useRef();
+
+  const handleAdd = () => {
+    if (todos !== "") {
+      dispatch(actions.addTodo(todoInput));
+      dispatch(actions.setTodoInput(""));
+      inputRef.current.focus();
+    }
+  };
+  const handleRemove = (index) => {
+    dispatch(actions.removeTodo(index));
+  };
+
+  function handleUpdate() {
+    dispatch(actions.updateTodo(index, todoInput));
+    dispatch(actions.setTodoInput(""));
+    setStatus(true);
+  }
 
   return (
-    <div style={{ padding: "0px  20px" }}>
-      <p>Sử dụng useState</p>
-      <h1>{count}</h1>
-      <button onClick={() => setCount(count + 1)}>Up</button>
-      <button onClick={() => setCount(count - 1)}>Down</button>
-      <p>Sử dụng useReducer</p>
-      <h1>{count2}</h1>
-      <button onClick={() => dispatch(UP_ACTION)}>Up</button>
-      <button onClick={() => dispatch(DOWN_ACTION)}>Down</button>
+    <div className="input-group" style={{ padding: 20 }}>
+      <input
+        value={todoInput}
+        placeholder="Enter todo..."
+        onChange={(e) => {
+          dispatch(actions.setTodoInput(e.target.value));
+        }}
+      />
+
+      <button
+        className="btn"
+        onClick={status === true ? handleAdd : handleUpdate}
+      >
+        {status === true ? "Thêm" : "Update"}
+      </button>
+
+      {todos.map((todo, index) => (
+        <li key={index}>
+          {todo}
+          <button className="btn" onClick={() => handleRemove(index)}>
+            Xoá
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              dispatch(actions.setTodoInput(todo));
+              setStatus(false);
+              setIndex(index);
+            }}
+          >
+            Sửa
+          </button>
+        </li>
+      ))}
     </div>
   );
 }
