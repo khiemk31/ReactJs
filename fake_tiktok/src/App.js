@@ -1,25 +1,29 @@
-import "./App.css";
-import Heading from "./components/Heading";
-import GlobalStyles from "./components/GlobalStyles";
-import Paragraph from "./components/Paragraph";
-import Button from "./components/Button";
+import { Routes, Route, Link } from "react-router-dom";
+import HomePage from "./pages/Home";
+import NewsPage from "./pages/News";
+import ContactPage from "./pages/Contact";
 function App() {
   return (
-    <GlobalStyles>
-      <div style={{ padding: "0 32px" }}>
-        <h1 className="heading">CSS</h1>
-        <Heading />
-        <Paragraph />
-      </div>
-      <div className="d-flex">
-        <span>Item 1</span>
-        <span>Item 2</span>
-        <span>Item 3</span>
-      </div>
-      <Button />
-      <Button primary />
-      <Button disabled />
-    </GlobalStyles>
+    <div style={{ padding: "0 32px" }}>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/news">News</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </div>
   );
 }
 
